@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Minimalny reset – bez ustawiania koloru tła */
+html, body {
+  height: 100%;
+  margin: 0;
+}
