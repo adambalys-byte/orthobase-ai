@@ -1,5 +1,7 @@
 import Image from "next/image";
 import EarlyAccessForm from "./EarlyAccessForm";
+import FancyButton from "@/components/FancyButton";
+
 
 export default function Home() {
   return (
@@ -25,12 +27,13 @@ export default function Home() {
         </p>
 
         {/* CTA */}
-        <a
-          href="#early-access"
-          className="mt-8 inline-block rounded-lg bg-blue-600 px-6 py-3 text-white text-lg font-semibold shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        >
-          Zapisz się na Early Access
-        </a>
+        <div className="mt-12 mb-8">
+  <FancyButton as="a" href="#early-access">
+    Zapisz się na Early Access
+  </FancyButton>
+</div>
+
+
 
         {/* 3 wartości */}
         <div className="mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 text-left">
