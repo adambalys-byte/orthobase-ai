@@ -16,9 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl">
-      <body className="text-slate-100 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-  {children}
-</body>
+      <body
+        className={`${inter.className} antialiased text-slate-100
+        bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

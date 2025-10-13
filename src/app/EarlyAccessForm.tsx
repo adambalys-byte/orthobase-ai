@@ -7,6 +7,7 @@ export default function EarlyAccessForm() {
   const [name, setName]     = useState('');
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<'idle'|'loading'|'ok'|'err'>('idle');
+  const [hp, setHp] = useState(''); // honeypot (musi być wewnątrz komponentu)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -16,10 +17,10 @@ export default function EarlyAccessForm() {
       const res = await fetch('/api/early-access', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, consent }),
+        body: JSON.stringify({ email, name, consent, website: hp }),
       });
       setStatus(res.ok ? 'ok' : 'err');
-      if (res.ok) { setEmail(''); setName(''); setConsent(false); }
+      if (res.ok) { setEmail(''); setName(''); setConsent(false); setHp(''); }
     } catch {
       setStatus('err');
     }
@@ -30,7 +31,7 @@ export default function EarlyAccessForm() {
     "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
       <div>
         <label htmlFor="email" className="text-sm font-medium text-slate-700">E-mail*</label>
         <input
@@ -55,6 +56,18 @@ export default function EarlyAccessForm() {
           className={base}
         />
       </div>
+
+      {/* Honeypot – ukryte pole dla botów */}
+      <input
+        type="text"
+        value={hp}
+        onChange={(e)=>setHp(e.target.value)}
+        className="hidden"
+        aria-hidden="true"
+        tabIndex={-1}
+        autoComplete="off"
+        name="website"
+      />
 
       <label className="flex items-start gap-2 text-sm text-slate-600">
         <input
