@@ -1,4 +1,3 @@
-// src/components/FancyButton.tsx
 import React from "react";
 
 type FancyAnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -31,8 +30,8 @@ export default function FancyButton(props: FancyButtonProps) {
     "before:bg-[linear-gradient(180deg,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.08)_40%,transparent_100%)] " +
     "before:opacity-95";
 
-  if (props.as === "a") {
-    const { as, href, children, className = "", ...rest } = props as FancyAnchorProps;
+  if ((props as FancyAnchorProps).as === "a") {
+    const { href, children, className = "", ...rest } = props as FancyAnchorProps;
     return (
       <a href={href} className={`${base} ${sheen} ${className}`} {...rest}>
         <span className="relative z-10">{children}</span>
@@ -40,7 +39,7 @@ export default function FancyButton(props: FancyButtonProps) {
     );
   }
 
-  const { as, children, className = "", ...rest } = props as FancyButtonElProps;
+  const { children, className = "", ...rest } = props as FancyButtonElProps;
   return (
     <button className={`${base} ${sheen} ${className}`} {...rest}>
       <span className="relative z-10">{children}</span>

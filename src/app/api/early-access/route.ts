@@ -1,4 +1,3 @@
-// src/app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
@@ -12,9 +11,8 @@ const payloadSchema = z.object({
   website: z.string().optional().or(z.literal("")),
 });
 
-// prosty limiter w pamięci
-const memory = (globalThis as any).__rl || new Map<string, { ts: number; count: number }>();
-(globalThis as any).__rl = memory;
+/** Prosty limiter (w zasięgu modułu, bez globalThis) */
+const memory: Map<string, { ts: number; count: number }> = new Map();
 const WINDOW_MS = 60_000;
 const MAX_REQ = 5;
 
@@ -30,7 +28,7 @@ function rateLimit(ip: string) {
   return rec.count <= MAX_REQ;
 }
 
-// helper do wczytywania plików z szablonami
+/** Wczytywanie szablonów z repo */
 async function loadTemplate(rel: string) {
   const full = path.join(process.cwd(), rel.replace(/^\.?\//, ""));
   return fs.readFile(full, "utf8");
@@ -38,10 +36,9 @@ async function loadTemplate(rel: string) {
 
 export async function POST(req: Request) {
   try {
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      (req as any).ip ||
-      "0.0.0.0";
+    // IP tylko z nagłówka (bez castów)
+    const fwd = req.headers.get("x-forwarded-for") ?? "";
+    const ip = fwd.split(",")[0]?.trim() || "0.0.0.0";
 
     if (!rateLimit(ip)) {
       return NextResponse.json({ ok: false, error: "Too many requests" }, { status: 429 });
@@ -55,8 +52,9 @@ export async function POST(req: Request) {
 
     const { email, name, consent, website } = parsed.data;
 
+    // Honeypot
     if (website && website.trim().length > 0) {
-      return NextResponse.json({ ok: true }); // honeypot
+      return NextResponse.json({ ok: true });
     }
 
     const transporter = nodemailer.createTransport({
@@ -74,18 +72,13 @@ export async function POST(req: Request) {
       text: `Email: ${email}\nImię: ${name || "-"}\nZgoda: ${consent ? "TAK" : "NIE"}\nIP: ${ip}`,
     });
 
-    // 2) Autoresponder HTML + TXT (z szablonów w docs/automation/emails)
+    // 2) Autoresponder (HTML+TXT z szablonów)
     const year = new Date().getFullYear().toString();
     const htmlTpl = await loadTemplate("docs/automation/emails/ea_welcome_v1.html");
     const txtTpl = await loadTemplate("docs/automation/emails/ea_welcome_v1.txt");
 
-    const html = htmlTpl
-      .replace(/{{\s*email\s*}}/g, email)
-      .replace(/{{\s*year\s*}}/g, year);
-
-    const text = txtTpl
-      .replace(/{{\s*email\s*}}/g, email)
-      .replace(/{{\s*year\s*}}/g, year);
+    const html = htmlTpl.replace(/{{\s*email\s*}}/g, email).replace(/{{\s*year\s*}}/g, year);
+    const text = txtTpl.replace(/{{\s*email\s*}}/g, email).replace(/{{\s*year\s*}}/g, year);
 
     await transporter.sendMail({
       from: `"OrthoBase AI" <${process.env.SMTP_USER}>`,
