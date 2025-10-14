@@ -1,8 +1,7 @@
+// src/app/api/early-access/route.ts
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
-import fs from "fs/promises";
-import path from "path";
 
 const payloadSchema = z.object({
   email: z.string().email().max(254),
@@ -11,7 +10,7 @@ const payloadSchema = z.object({
   website: z.string().optional().or(z.literal("")),
 });
 
-/** Prosty limiter (w zasięgu modułu, bez globalThis) */
+/** Prosty limiter (w zasięgu modułu) */
 const memory: Map<string, { ts: number; count: number }> = new Map();
 const WINDOW_MS = 60_000;
 const MAX_REQ = 5;
@@ -28,15 +27,8 @@ function rateLimit(ip: string) {
   return rec.count <= MAX_REQ;
 }
 
-/** Wczytywanie szablonów z repo */
-async function loadTemplate(rel: string) {
-  const full = path.join(process.cwd(), rel.replace(/^\.?\//, ""));
-  return fs.readFile(full, "utf8");
-}
-
 export async function POST(req: Request) {
   try {
-    // IP tylko z nagłówka (bez castów)
     const fwd = req.headers.get("x-forwarded-for") ?? "";
     const ip = fwd.split(",")[0]?.trim() || "0.0.0.0";
 
@@ -72,13 +64,60 @@ export async function POST(req: Request) {
       text: `Email: ${email}\nImię: ${name || "-"}\nZgoda: ${consent ? "TAK" : "NIE"}\nIP: ${ip}`,
     });
 
-    // 2) Autoresponder (HTML+TXT z szablonów)
-    const year = new Date().getFullYear().toString();
-    const htmlTpl = await loadTemplate("docs/automation/emails/ea_welcome_v1.html");
-    const txtTpl = await loadTemplate("docs/automation/emails/ea_welcome_v1.txt");
+    // 2) Autoresponder do użytkownika (INLINE HTML + TXT — bez plików)
+    const year = new Date().getFullYear();
+    const text =
+      "Dziękujemy za zapis do OrthoBase AI!\n\n" +
+      "Wkrótce wyślemy zaproszenie do testów oraz instrukcję pierwszego logowania.\n\n" +
+      `Twoje zgłoszenie:\n- E-mail: ${email}\n- Status: zapis przyjęty\n\n` +
+      "Pozdrawiamy,\nZespół OrthoBase AI\nhttps://orthobase.pl\n" +
+      `© ${year} OrthoBase AI`;
 
-    const html = htmlTpl.replace(/{{\s*email\s*}}/g, email).replace(/{{\s*year\s*}}/g, year);
-    const text = txtTpl.replace(/{{\s*email\s*}}/g, email).replace(/{{\s*year\s*}}/g, year);
+    const html = `
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f6f8fb;padding:32px 16px;">
+        <tr><td align="center">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;background:#ffffff;border:1px solid #e6eaf2;border-radius:14px;box-shadow:0 8px 28px rgba(16,24,40,.08);overflow:hidden;">
+            <tr><td style="padding:24px 24px 0 24px;" align="center">
+              <img src="https://orthobase.pl/orthobase-logo.png" alt="OrthoBase AI" width="96" height="96" style="display:block;border:0;outline:none;text-decoration:none;">
+            </td></tr>
+            <tr><td style="padding:8px 24px 0 24px;" align="center">
+              <h1 style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:22px;line-height:28px;color:#0f172a;font-weight:700;">
+                Dziękujemy za dołączenie do Early Access
+              </h1>
+            </td></tr>
+            <tr><td style="padding:12px 24px 0 24px;" align="center">
+              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:22px;color:#334155;">
+                Wkrótce otrzymasz zaproszenie do testów OrthoBase&nbsp;AI oraz krótką instrukcję startową.
+              </p>
+            </td></tr>
+            <tr><td style="padding:20px 24px 0 24px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #e6eaf2;border-radius:12px;background:#f8fafc;">
+                <tr><td style="padding:16px 18px;">
+                  <p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#0f172a;font-weight:600;">Twoje zgłoszenie</p>
+                  <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#475569;">
+                    E-mail: <strong style="color:#0f172a;">${email}</strong><br>
+                    Status: zapis przyjęty ✔
+                  </p>
+                </td></tr>
+              </table>
+            </td></tr>
+            <tr><td style="padding:20px 24px 0 24px;" align="center">
+              <a href="https://orthobase.pl" style="display:inline-block;background:linear-gradient(135deg,#38bdf8,#2563eb);color:#ffffff;text-decoration:none;padding:12px 18px;border-radius:12px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:600;box-shadow:0 10px 24px rgba(37,99,235,0.35);">
+                Odwiedź orthobase.pl
+              </a>
+              <p style="margin:12px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#64748b;">
+                W razie pytań: <a href="mailto:kontakt@orthobase.pl" style="color:#2563eb;text-decoration:none;">kontakt@orthobase.pl</a>
+              </p>
+            </td></tr>
+            <tr><td style="padding:20px 24px 24px 24px;" align="center">
+              <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#94a3b8;">
+                © ${year} OrthoBase AI • Warsaw, Poland
+              </p>
+            </td></tr>
+          </table>
+        </td></tr>
+      </table>
+    `;
 
     await transporter.sendMail({
       from: `"OrthoBase AI" <${process.env.SMTP_USER}>`,
