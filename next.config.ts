@@ -1,72 +1,48 @@
 // next.config.ts
 import type { NextConfig } from "next";
 
+/**
+ * CSP dostosowane do Next.js (App Router) i hostingu Vercel:
+ * - pozwala na inicjalizację/rehydratację skryptów (inline/eval wymagane przez część runtime'u)
+ * - obrazy i fonty z self + data: (+ https: dla obrazów zewnętrznych, jeśli kiedyś dodasz)
+ * - connect-src self + vercel-insights (jeśli kiedyś włączysz Analytics Vercela)
+ * Uwaga: jeśli dodasz zewnętrzne skrypty/CDN (np. analytics), rozszerzymy odpowiednie dyrektywy.
+ */
 const csp = [
-  // domyślnie ładujemy tylko z własnej domeny
   "default-src 'self'",
-  // skrypty tylko lokalne (brak zewnętrznych CDN); jeśli dodasz analytics/CDN, rozszerzymy to pole
-  "script-src 'self'",
-  // style lokalne; 'unsafe-inline' potrzebne m.in. dla krytycznych stylów/inline (np. font preload metadane)
-  "style-src 'self' 'unsafe-inline'",
-  // obrazy z własnej domeny, data: oraz https (na wypadek osadzonych grafik)
-  "img-src 'self' data: https:",
-  // czcionki lokalne i data:
-  "font-src 'self' data:",
-  // połączenia sieciowe tylko do własnej domeny (API, fetch)
-  "connect-src 'self'",
-  // zabrania osadzania strony w ramkach (clickjacking)
-  "frame-ancestors 'none'",
-  // ogranicza, skąd można brać bazowy URL dokumentu
   "base-uri 'self'",
-  // wysyłanie formularzy tylko do własnej domeny
+  "frame-ancestors 'none'",
   "form-action 'self'",
+  // Skrypty: zezwól na inline/eval + blob dla runtime Next.js
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:",
+  // Style: lokalne + inline (Tailwind/inline krytyczne)
+  "style-src 'self' 'unsafe-inline'",
+  // Obrazy: lokalne, data: i https:
+  "img-src 'self' data: https:",
+  // Czcionki: lokalne + data:
+  "font-src 'self' data:",
+  // Połączenia (XHR/fetch/SSE) – tylko do self + (opcjonalnie) Vercel Insights
+  "connect-src 'self' https://vitals.vercel-insights.com",
 ].join("; ");
 
 const securityHeaders = [
-  // Wymusza HTTPS w całej domenie + subdomenach (po wdrożeniu stabilnym) – przygotowane pod preload
-  {
-    key: "Strict-Transport-Security",
-    value: "max-age=31536000; includeSubDomains; preload",
-  },
-  // Podstawowa polityka treści – patrz wyżej
-  {
-    key: "Content-Security-Policy",
-    value: csp,
-  },
-  // Nie wysyłaj pełnego referera
-  {
-    key: "Referrer-Policy",
-    value: "strict-origin-when-cross-origin",
-  },
-  // Blokuje sniffing typów MIME
-  {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
-  },
-  // Zabezpiecza przed osadzaniem w ramkach
-  {
-    key: "X-Frame-Options",
-    value: "DENY",
-  },
-  // Odbiera uprawnienia API przeglądarki (rozszerzymy, gdy coś będzie potrzebne)
-  {
-    key: "Permissions-Policy",
-    value: "geolocation=(), microphone=(), camera=(), payment=()",
-  },
+  { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains; preload" },
+  { key: "Content-Security-Policy", value: csp },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Permissions-Policy", value: "geolocation=(), microphone=(), camera=(), payment=()" },
 ];
 
 const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // wszystkie ścieżki
         source: "/:path*",
         headers: securityHeaders,
       },
     ];
   },
-  // (opcjonalnie) surowszy tryb dla statycznych zasobów, jeśli kiedyś dodasz zewnętrzne CDN:
-  // images: { remotePatterns: [] },
 };
 
 export default nextConfig;
