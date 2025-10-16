@@ -1,0 +1,12 @@
+﻿Dziękujemy za zapis do OrthoBase AI!
+
+Wkrótce wyślemy zaproszenie do testów oraz krótką instrukcję pierwszego logowania.
+
+Twoje zgłoszenie:
+- E-mail: {{email}}
+- Status: zapis przyjęty
+
+Pozdrawiamy,
+Zespół OrthoBase AI
+https://orthobase.pl
+© {{year}} OrthoBase AI
