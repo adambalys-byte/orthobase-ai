@@ -1,0 +1,6 @@
+npm error code EBUSY
+npm error syscall unlink
+npm error path D:\OrthoBase\orthobase-ai\node_modules\next\dist\compiled\schema-utils3\index.js
+npm error errno -4082
+npm error EBUSY: resource busy or locked, unlink 'D:\OrthoBase\orthobase-ai\node_modules\next\dist\compiled\schema-utils3\index.js'
+npm error A complete log of this run can be found in: C:\Users\adamb\AppData\Local\npm-cache\_logs\2025-10-18T21_02_22_291Z-debug-0.log

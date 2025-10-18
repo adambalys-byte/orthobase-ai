@@ -1,0 +1,148 @@
+meta:
+  project: OrthoBase AI
+  owner: Adam Bałys
+  version: 0.1
+  last_updated: 2025-10-14
+  notes: >
+    Główny blueprint automatyzacji. Po zatwierdzeniu każdy workflow
+    przeniesiemy do AGiXT jako osobne zadania/agentów ze schedule i triggerami.
+
+security_and_privacy:
+  data_residency: EU
+  phi_pii_policy:
+    collect_phi: false               # na tym etapie nigdy
+    transmit_phi: false
+    deidentification_required: true  # gdy w przyszłości będzie to konieczne
+  secrets:
+    store: env/AGIXT_VAULT           # placeholder; docelowo Secrets Manager
+  logging:
+    level: INFO
+    redaction: ["email", "access_token"]
+    retention_days: 30
+  rate_limits:
+    outbound_email_per_min: 10
+    webhooks_per_min: 30
+
+integrations:
+  email_outbound: smtp.ovh           # kontakt@orthobase.pl (z .env / AGiXT secrets)
+  email_inbound: mailpit_local       # lokalnie do testów (prod: OVH IMAP)
+  web:
+    - vercel_deploy_webhook
+    - orthobase_public_api           # API /api/early-access itd.
+  repos:
+    - github: adambalys-byte/orthobase-ai
+  dashboards_future:
+    - sentry_eu
+    - plausible_analytics
+
+agents:
+  - name: IntakeManager
+    role: Przyjmowanie zgłoszeń Early Access i weryfikacja jakości wpisów
+    tools: [email_outbound, web]
+  - name: CommsResponder
+    role: Profesjonalne odpowiedzi i follow-up mailowy z szablonów
+    tools: [email_outbound]
+  - name: ReleasePublisher
+    role: Powiadomienia o wdrożeniach (Vercel/GitHub) i publikacja changelog
+    tools: [web, repos, email_outbound]
+  - name: Monitor
+    role: Monitorowanie błędów i sygnałów (docelowo Sentry), eskalacja
+    tools: [web, email_outbound]
+  - name: OpsScheduler
+    role: Harmonogramy, przeglądy tygodniowe, raporty
+    tools: [email_outbound, web]
+
+workflows:
+  - id: ea_intake
+    name: Early Access – Intake
+    trigger:
+      type: webhook
+      source: orthobase_public_api:/api/early-access
+    steps:
+      - validate_payload: { required: ["email", "consent"], honeypot: "website" }
+      - write_log: { table: ea_events, fields: ["email","name","ip","ts"] }
+      - send_autoresponder:
+          agent: CommsResponder
+          template: email.ea_welcome_v1   # HTML szablon (branding)
+      - notify_owner:
+          agent: IntakeManager
+          to: kontakt@orthobase.pl
+          template: email.ea_intake_admin_v1
+    sla:
+      max_latency_sec: 5
+    alerts:
+      on_fail: kontakt@orthobase.pl
+
+  - id: daily_digest
+    name: Codzienny raport zgłoszeń
+    trigger:
+      type: schedule
+      cron: "0 7 * * *"     # 07:00 codziennie
+      tz: Europe/Warsaw
+    steps:
+      - query_logs: { table: ea_events, since: "yesterday 00:00" }
+      - compile_digest: { metrics: ["new_signups","errors","deliverability"] }
+      - email_digest:
+          agent: OpsScheduler
+          to: kontakt@orthobase.pl
+          template: email.daily_digest_v1
+
+  - id: release_notify
+    name: Powiadomienie o wdrożeniu (Vercel/GitHub)
+    trigger:
+      type: webhook
+      source: vercel_deploy_webhook
+      filter: { state: "READY", target: "production" }
+    steps:
+      - fetch_build_meta: { repo: "adambalys-byte/orthobase-ai" }
+      - email_publish:
+          agent: ReleasePublisher
+          to: kontakt@orthobase.pl
+          template: email.deploy_ready_v1
+
+templates:
+  email:
+    ea_welcome_v1:
+      subject: "Dziękujemy za zapis do OrthoBase AI – Early Access"
+      html: file://emails/ea_welcome_v1.html
+      text: file://emails/ea_welcome_v1.txt
+    ea_intake_admin_v1:
+      subject: "[EA] Nowe zgłoszenie: {{email}}"
+      text: |
+        Email: {{email}}
+        Imię: {{name}}
+        IP: {{ip}}
+        Czas: {{ts}}
+    daily_digest_v1:
+      subject: "[OrthoBase] Raport dzienny zgłoszeń"
+      text: |
+        Nowe zapisy: {{metrics.new_signups}}
+        Błędy API: {{metrics.errors}}
+        Dostarczalność: {{metrics.deliverability}}%
+    deploy_ready_v1:
+      subject: "[Deploy] Production READY – {{commit}}"
+      text: |
+        Commit: {{commit}}
+        Autor: {{author}}
+        URL: {{url}}
+        Czas: {{ts}}
+
+storage:
+  logs_table: ea_events
+  persist:
+    impl: sqlite_local            # dev (docelowo: Postgres w AWS)
+    path: D:/OrthoBase/orthobase-ai/.local/ea_events.sqlite
+
+go_live_plan:
+  phase_1:
+    scope: ea_intake, daily_digest, release_notify
+    envs: [dev_local, prod_vercel]
+  phase_2:
+    scope: sentry_monitoring, plausible_analytics
+  phase_3:
+    scope: aws_backend_eu   # API Gateway + Lambda + RDS (PHI-ready)
+
+acceptance_criteria:
+  - Wszystkie workflowy w Phase 1 działają end-to-end w dev i prod
+  - Raport dzienny przychodzi o 07:00 CET
+  - Brak PHI/PII w logach i mailach (poza e-mailem użytkownika)
