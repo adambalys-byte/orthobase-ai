@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Project Doctor artifacts
+doctor_out_*/
+doctor_report_*.zip
+.doctor_*.log
+
+# Playwright runs
+test-results/
+playwright-report/
