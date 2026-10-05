@@ -38,7 +38,7 @@ export default function SupportSection({ href }: SupportSectionProps) {
         </h2>
         <p className={styles.text}>
           Jeśli Orthobase ułatwia Ci pracę, możesz dorzucić się do serwera i narzędzi
-          do jego rozwoju, w tym ChatGPT. <span className={styles.signature}>Dzięki! — Adam</span>
+          do jego rozwoju. <span className={styles.signature}>Dzięki! — Adam</span>
         </p>
       </div>
     </section>

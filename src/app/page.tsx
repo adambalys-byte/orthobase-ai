@@ -1,6 +1,5 @@
-import Image from "next/image";
 import AccountLink from "@/components/AccountLink";
-import SupportSection from "@/components/SupportSection";
+import HomeLogo from "@/components/HomeLogo";
 import styles from "./page.module.css";
 
 function Arrow() {
@@ -34,10 +33,10 @@ export default function Home() {
     <div className={styles.page}>
       <a className={styles.skipLink} href="#moduly">Przejdź do narzędzi</a>
       <header className={styles.header}>
-        <Image src="/orthobase-logo.svg" alt="Orthobase AI" width={176} height={133} priority className={styles.logo} />
+        <HomeLogo priority />
         <nav className={styles.headerLinks} aria-label="Konto i kontakt">
           <AccountLink />
-          <a className={styles.contactLink} href="mailto:kontakt@orthobase.pl">Kontakt <Arrow /></a>
+          <a className={styles.contactLink} href="mailto:kontakt@orthobase.pl">Kontakt</a>
         </nav>
       </header>
 
@@ -73,16 +72,7 @@ export default function Home() {
         </section>
 
         <p className={styles.future}><span aria-hidden="true" />Jedno konto Orthobase. Google lub kod e-mail.</p>
-        <SupportSection href="https://buycoffee.to/orthobase" />
       </main>
-
-      <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} Orthobase</span>
-        <nav aria-label="Kontakt i informacje" className={styles.footerLinks}>
-          <a href="mailto:kontakt@orthobase.pl">kontakt@orthobase.pl</a>
-          <a href="/privacy">Prywatność</a>
-        </nav>
-      </footer>
     </div>
   );
 }

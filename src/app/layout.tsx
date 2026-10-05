@@ -1,9 +1,11 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import Script from "next/script";
+import SupportSection from "@/components/SupportSection";
 import "./globals.css";
 import "./workshop.css";
 import { Inter } from "next/font/google";
+import styles from "./layout.module.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -80,7 +82,19 @@ export default function RootLayout({
         className={`${inter.className} antialiased text-slate-100
         bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800`}
       >
-        {children}
+        <div className={styles.shell}>
+          {children}
+          <div className={styles.support}>
+            <SupportSection href="https://buycoffee.to/orthobase" />
+          </div>
+          <footer className={styles.footer}>
+            <span>© {new Date().getFullYear()} Orthobase</span>
+            <nav aria-label="Kontakt i informacje" className={styles.footerLinks}>
+              <a href="mailto:kontakt@orthobase.pl">kontakt@orthobase.pl</a>
+              <a href="/privacy">Prywatność</a>
+            </nav>
+          </footer>
+        </div>
         <Script id="orthobase-workshop-campaign" src="/workshop.js?v=20261008-1" strategy="afterInteractive" />
       </body>
     </html>

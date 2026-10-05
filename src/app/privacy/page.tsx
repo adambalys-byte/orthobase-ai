@@ -1,4 +1,4 @@
-import Link from "next/link";
+import HomeLogo from "@/components/HomeLogo";
 
 export default function Privacy() {
   return (
@@ -67,7 +67,9 @@ export default function Privacy() {
         <p className="text-xs text-slate-500 mt-8">
           Wersja: {new Date().toISOString().slice(0, 10)}
         </p>
-        <Link className="inline-block mt-5 underline text-blue-700 hover:text-blue-800" href="/">Wróć do Orthobase</Link>
+        <div className="mt-6">
+          <HomeLogo compact />
+        </div>
       </section>
     </main>
   );

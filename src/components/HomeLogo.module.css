@@ -1,0 +1,33 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 144px;
+  max-width: 100%;
+  flex-shrink: 0;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.image { display: block; width: 100%; height: auto; }
+.link:hover { background-color: #ffffff08; }
+.link:focus-visible { outline: 3px solid #80e9de; outline-offset: 6px; }
+
+.compact {
+  width: 140px;
+  padding: 8px 14px;
+  border: 1px solid #294658;
+  background: #0a2234;
+}
+
+.compact:hover { background-color: #15374b; }
+
+@media (max-width: 520px) {
+  .link { width: 120px; }
+  .compact { width: 132px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link { transition: none; }
+}
