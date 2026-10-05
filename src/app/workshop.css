@@ -1,0 +1,14 @@
+.obWorkshop{position:fixed;z-index:40;left:20px;bottom:var(--obWorkshop-bottom,20px);box-sizing:border-box;width:min(390px,calc(100vw - 40px));max-height:min(540px,calc(100dvh - 40px));overflow:auto;padding:25px;border:1px solid #bad8d2;border-top:4px solid #087e74;border-radius:16px;background:#f4fbf8;color:#15354c;box-shadow:0 12px 38px #0b263529;font-family:"Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.5;text-align:left;overscroll-behavior:contain}
+.obWorkshop[hidden]{display:none!important}
+.obWorkshop *{box-sizing:border-box}
+.obWorkshop .obWorkshopClose{position:absolute;right:7px;top:7px;display:grid;place-items:center;width:38px;height:38px;min-height:38px;padding:0;border:0;border-radius:8px;background:transparent;color:#365568;font-size:27px;font-weight:400;line-height:1;cursor:pointer}
+.obWorkshop .obWorkshopClose:hover{background:#deeee8}
+.obWorkshop .obWorkshopEyebrow{margin:0 26px 10px 0;color:#006853;font-size:10px;font-weight:700;letter-spacing:.1em;line-height:1.5}
+.obWorkshop .obWorkshopTitle{margin:0 0 13px;font-size:23px;font-weight:700;letter-spacing:-.025em;line-height:1.2;color:#15354c;overflow-wrap:break-word}
+.obWorkshop .obWorkshopDescription{margin:0 0 17px;font-size:14px;line-height:1.55;color:#385469}
+.obWorkshop .obWorkshopLink{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:44px;padding:11px 13px;border:1px solid #006853;border-radius:8px;background:#006853;color:#fff;font-size:14px;font-weight:650;line-height:1.4;text-align:center;text-decoration:none}
+.obWorkshop .obWorkshopLink:hover{background:#075848}
+.obWorkshop .obWorkshopNote{margin:13px 0 0;font-size:12px;line-height:1.5;color:#4a6270}
+.obWorkshop .obWorkshopClose:focus-visible,.obWorkshop .obWorkshopLink:focus-visible{outline:3px solid #165f9b;outline-offset:3px}
+@media(max-width:600px){.obWorkshop{left:12px;right:12px;bottom:var(--obWorkshop-mobile-bottom,calc(76px + env(safe-area-inset-bottom,0px)));width:auto;max-width:none;max-height:40vh;max-height:40dvh;padding:19px 20px;border-radius:13px}.obWorkshop .obWorkshopTitle{font-size:21px;margin-bottom:10px}.obWorkshop .obWorkshopDescription{font-size:13px;margin-bottom:13px}.obWorkshop .obWorkshopNote{margin-top:10px}}
+@media print{.obWorkshop{display:none!important}}

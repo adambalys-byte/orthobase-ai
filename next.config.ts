@@ -5,7 +5,7 @@ import type { NextConfig } from "next";
  * CSP dostosowane do Next.js (App Router) i hostingu Vercel:
  * - pozwala na inicjalizację/rehydratację skryptów (inline/eval wymagane przez część runtime'u)
  * - obrazy i fonty z self + data: (+ https: dla obrazów zewnętrznych, jeśli kiedyś dodasz)
- * - connect-src self + vercel-insights (jeśli kiedyś włączysz Analytics Vercela)
+ * - connect-src self + status konta Orthobase + vercel-insights (jeśli kiedyś włączysz Analytics Vercela)
  * Uwaga: jeśli dodasz zewnętrzne skrypty/CDN (np. analytics), rozszerzymy odpowiednie dyrektywy.
  */
 const csp = [
@@ -21,8 +21,8 @@ const csp = [
   "img-src 'self' data: https:",
   // Czcionki: lokalne + data:
   "font-src 'self' data:",
-  // Połączenia (XHR/fetch/SSE) – tylko do self + (opcjonalnie) Vercel Insights
-  "connect-src 'self' https://vitals.vercel-insights.com",
+  // Połączenia: status wspólnego konta oraz istniejący zakres Vercel Insights.
+  "connect-src 'self' https://dyzury.orthobase.pl https://vitals.vercel-insights.com",
 ].join("; ");
 
 const securityHeaders = [

@@ -1,6 +1,8 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
+import "./workshop.css";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -79,6 +81,7 @@ export default function RootLayout({
         bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800`}
       >
         {children}
+        <Script id="orthobase-workshop-campaign" src="/workshop.js?v=20261008-1" strategy="afterInteractive" />
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import AccountLink from "@/components/AccountLink";
 import styles from "./page.module.css";
 
 function Arrow() {
@@ -33,7 +34,10 @@ export default function Home() {
       <a className={styles.skipLink} href="#moduly">Przejdź do narzędzi</a>
       <header className={styles.header}>
         <Image src="/orthobase-logo.svg" alt="Orthobase AI" width={176} height={133} priority className={styles.logo} />
-        <a className={styles.contactLink} href="mailto:kontakt@orthobase.pl">Kontakt <Arrow /></a>
+        <nav className={styles.headerLinks} aria-label="Konto i kontakt">
+          <AccountLink />
+          <a className={styles.contactLink} href="mailto:kontakt@orthobase.pl">Kontakt <Arrow /></a>
+        </nav>
       </header>
 
       <main className={styles.main}>
@@ -67,7 +71,7 @@ export default function Home() {
           </a>
         </section>
 
-        <p className={styles.future}><span aria-hidden="true" />Tutaj pojawią się kolejne narzędzia Orthobase.</p>
+        <p className={styles.future}><span aria-hidden="true" />Jedno konto Orthobase. Google lub kod e-mail.</p>
       </main>
 
       <footer className={styles.footer}>

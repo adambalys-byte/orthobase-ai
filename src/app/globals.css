@@ -5,3 +5,7 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
+:root {
+  --obWorkshop-mobile-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+}

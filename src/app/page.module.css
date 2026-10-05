@@ -13,6 +13,7 @@
 .header, .main, .footer { width: 100%; max-width: 1120px; margin-inline: auto; }
 .header { display: flex; align-items: center; justify-content: space-between; min-height: 120px; gap: 24px; }
 .logo { width: 144px; height: auto; }
+.headerLinks { display: flex; align-items: center; justify-content: flex-end; gap: 20px; }
 .contactLink {
   display: inline-flex; align-items: center; gap: 10px; padding: 12px 0 12px 12px;
   color: #d3e4ed; font-size: 14px; font-weight: 500; text-decoration: none;
@@ -106,6 +107,12 @@
   .page .card:focus-visible { border-radius: 20px; }
   .footer { align-items: flex-start; flex-direction: column; gap: 12px; margin-top: 46px; }
   .footerLinks { gap: 8px 22px; }
+}
+@media (max-width: 520px) {
+  .header { min-height: 152px; flex-wrap: wrap; gap: 0 16px; padding-block: 12px 20px; }
+  .logo { width: 120px; }
+  .headerLinks { width: 100%; justify-content: space-between; gap: 14px; }
+  .hero { padding-top: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .card, .arrow { transition: none; }
