@@ -6,12 +6,12 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "OrthoBase AI",
-  description: "Inteligentny asystent ortopedii.",
+  title: "Orthobase — Dyżury i Szkoła",
+  description: "Narzędzia dla ortopedii w jednym miejscu. Przejdź do propozycji dyżurowych i próbnego grafiku lub sprawdź program i spotkania Szkoły.",
   metadataBase: new URL("https://orthobase.pl"),
   openGraph: {
-    title: "OrthoBase AI",
-    description: "Inteligentny asystent ortopedii.",
+    title: "Orthobase — Dyżury i Szkoła",
+    description: "Narzędzia dla ortopedii w jednym miejscu. Przejdź do propozycji dyżurowych i próbnego grafiku lub sprawdź program i spotkania Szkoły.",
     url: "https://orthobase.pl",
     siteName: "OrthoBase AI",
     images: [{ url: "/orthobase-og.png", width: 1200, height: 630, alt: "OrthoBase AI" }],
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OrthoBase AI",
-    description: "Inteligentny asystent ortopedii.",
+    title: "Orthobase — Dyżury i Szkoła",
+    description: "Narzędzia dla ortopedii w jednym miejscu. Przejdź do propozycji dyżurowych i próbnego grafiku lub sprawdź program i spotkania Szkoły.",
     images: ["/orthobase-og.png"],
   },
 };

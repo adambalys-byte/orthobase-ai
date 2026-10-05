@@ -1,83 +1,83 @@
 import Image from "next/image";
-import EarlyAccessForm from "./EarlyAccessForm";
-import FancyButton from "@/components/FancyButton";
+import styles from "./page.module.css";
 
+function Arrow() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <rect x="5" y="7" width="22" height="22" rx="4" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M5 14h22M11 3v8M21 3v8M11 20h3m4 0h3m-10 4h3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function BookIcon() {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <path d="M16 9c-3-3-8-4-12-3v20c4-1 9 0 12 3m0-20c3-3 8-4 12-3v20c-4-1-9 0-12 3V9Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 12c1.5 0 3 .4 4 1m-4 4c1.5 0 3 .4 4 1m8-5c1-.6 2.5-1 4-1m-4 6c1-.6 2.5-1 4-1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      {/* HERO */}
-      <section className="container mx-auto px-6 pt-14 pb-10 flex flex-col items-center text-center">
-        {/* Logo — SVG, bez żadnego tła */}
-        <div className="mb-6">
-          <Image
-            src="/orthobase-logo.svg"
-            alt="OrthoBase AI"
-            width={420}
-            height={420}
-            priority
-            className="select-none pointer-events-none"
-          />
-        </div>
+    <div className={styles.page}>
+      <a className={styles.skipLink} href="#moduly">Przejdź do narzędzi</a>
+      <header className={styles.header}>
+        <Image src="/orthobase-logo.svg" alt="Orthobase AI" width={176} height={133} priority className={styles.logo} />
+        <a className={styles.contactLink} href="mailto:kontakt@orthobase.pl">Kontakt <Arrow /></a>
+      </header>
 
-        {/* Podtytuł pod logo */}
-        <p className="max-w-2xl text-lg md:text-xl leading-relaxed text-slate-200 md:text-slate-300">
-          Inteligentny asystent ortopedii: szybkie opisy wizyt, kody i checklisty.
-          Mniej klikania, więcej medycyny.
-        </p>
+      <main className={styles.main}>
+        <section className={styles.hero} aria-labelledby="page-title">
+          <p className={styles.eyebrow}><span aria-hidden="true" />Narzędzia dla ortopedii</p>
+          <h1 id="page-title" className={styles.title}>Twoje narzędzia.<br /><span>Jedno miejsce.</span></h1>
+          <p className={styles.intro}>Codzienna praca i wspólna nauka. Wybierz moduł, który jest Ci teraz potrzebny.</p>
+        </section>
 
-        {/* CTA */}
-        <div className="mt-12 mb-8">
-  <FancyButton as="a" href="#early-access">
-    Zapisz się na Early Access
-  </FancyButton>
-</div>
+        <section id="moduly" className={styles.modules} aria-label="Narzędzia Orthobase" tabIndex={-1}>
+          <a href="https://dyzury.orthobase.pl/" className={[styles.card, styles.duties].join(" ")} aria-labelledby="duties-title" aria-describedby="duties-description duties-access">
+            <div className={styles.cardTop}>
+              <span className={styles.icon}><CalendarIcon /></span>
+              <span className={styles.category}>Organizacja pracy</span>
+            </div>
+            <h2 id="duties-title" className={styles.cardTitle}>Dyżury</h2>
+            <p id="duties-description" className={styles.cardDescription}>Zgłoś dyspozycyjność, wybierz preferowane dyżury i zobacz próbny grafik zespołu.</p>
+            <p id="duties-access" className={styles.cardDetail}>Dostęp po zalogowaniu i zatwierdzeniu konta.</p>
+            <span className={styles.cardAction}>Otwórz Dyżury <span className={styles.arrow}><Arrow /></span></span>
+          </a>
 
+          <a href="https://szkola.orthobase.pl/" className={[styles.card, styles.school].join(" ")} aria-labelledby="school-title" aria-describedby="school-description">
+            <div className={styles.cardTop}>
+              <span className={styles.icon}><BookIcon /></span>
+              <span className={styles.category}>Wspólna nauka</span>
+            </div>
+            <h2 id="school-title" className={styles.cardTitle}>Szkoła rezydentów</h2>
+            <p id="school-description" className={styles.cardDescription}>Program szkoły, terminy spotkań i informacje dla uczestników. Bądź na bieżąco.</p>
+            <p className={styles.cardDetail}>Sprawdź program i kolejne spotkania.</p>
+            <span className={styles.cardAction}>Otwórz Szkołę <span className={styles.arrow}><Arrow /></span></span>
+          </a>
+        </section>
 
+        <p className={styles.future}><span aria-hidden="true" />Tutaj pojawią się kolejne narzędzia Orthobase.</p>
+      </main>
 
-        {/* 3 wartości */}
-        <div className="mt-12 grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 text-left">
-          <Feature title="Dokumentacja w minuty" desc="Opisy wizyt, zalecenia i skierowania z gotowców." />
-          <Feature title="Szablony procedur" desc="Złamania, unieruchomienia, artroskopia – wszystko pod ręką." />
-          <Feature title="Med-grade od startu" desc="RODO-first, gotowe pod wrażliwe dane i skalowanie." />
-        </div>
-      </section>
-
-      {/* FORMULARZ */}
-      <section id="early-access" className="container mx-auto px-6 pb-20">
-        <div className="mx-auto max-w-xl rounded-2xl border border-slate-200/70 bg-white/90 backdrop-blur p-6 shadow-md">
-          <h2 className="text-2xl font-semibold text-slate-900">Dołącz do listy Early Access</h2>
-          <p className="mt-1 mb-4 text-slate-600">
-            Zostaw e-mail – damy znać o starcie i zaprosimy do testów.
-          </p>
-
-          <EarlyAccessForm />
-
-          <p className="mt-3 text-xs text-slate-500">
-            Szczegóły w <a href="/privacy" className="underline">Polityce prywatności</a>.
-          </p>
-        </div>
-      </section>
-
-      {/* STOPKA */}
-      <footer className="border-t border-slate-200 bg-white/70">
-        <div className="container mx-auto px-6 py-6 text-sm text-slate-500 flex flex-col md:flex-row items-center justify-between gap-2">
-          <span>© {new Date().getFullYear()} OrthoBase AI • Warsaw, Poland</span>
-          <nav className="flex items-center gap-4">
-            <a href="/privacy" className="hover:underline">Prywatność</a>
-            <a href="mailto:kontakt@orthobase.pl" className="hover:underline">kontakt@orthobase.pl</a>
-          </nav>
-        </div>
+      <footer className={styles.footer}>
+        <span>© {new Date().getFullYear()} Orthobase</span>
+        <nav aria-label="Kontakt i informacje" className={styles.footerLinks}>
+          <a href="mailto:kontakt@orthobase.pl">kontakt@orthobase.pl</a>
+          <a href="/privacy">Prywatność</a>
+        </nav>
       </footer>
-    </main>
-  );
-}
-
-function Feature({ title, desc }: { title: string; desc: string }) {
-  return (
-    <div className="rounded-xl border border-slate-200 bg-white/80 p-5 shadow-sm">
-      <h3 className="font-semibold text-slate-900">{title}</h3>
-      <p className="mt-1 text-slate-600 leading-relaxed">{desc}</p>
     </div>
   );
 }
+
