@@ -1,0 +1,43 @@
+.section {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  margin-top: 30px;
+  padding: 20px 22px;
+  border: 1px solid #3c515a;
+  border-radius: 18px;
+  background: #ffffff03;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  color: #ead5ac;
+  background: #ead5ac0c;
+}
+
+.icon svg { width: 28px; height: 28px; }
+.title { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.45; }
+.title a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  color: #ead5ac;
+  text-decoration: none;
+}
+.title a svg { width: 18px; height: 18px; flex-shrink: 0; }
+.title a:hover { color: #f5e5c9; text-decoration: underline; text-underline-offset: 4px; }
+.title a:focus-visible { outline: 3px solid #80e9de; outline-offset: 5px; border-radius: 4px; }
+.text { max-width: 78ch; margin: 4px 0 0; color: #b8cbd7; font-size: 14px; line-height: 1.65; text-wrap: pretty; }
+.signature { white-space: nowrap; }
+
+@media (max-width: 520px) {
+  .section { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 16px; }
+  .icon { width: 32px; height: 40px; background: transparent; }
+  .icon svg { width: 26px; height: 26px; }
+}

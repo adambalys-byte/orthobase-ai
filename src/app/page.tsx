@@ -1,5 +1,6 @@
 import Image from "next/image";
 import AccountLink from "@/components/AccountLink";
+import SupportSection from "@/components/SupportSection";
 import styles from "./page.module.css";
 
 function Arrow() {
@@ -72,6 +73,7 @@ export default function Home() {
         </section>
 
         <p className={styles.future}><span aria-hidden="true" />Jedno konto Orthobase. Google lub kod e-mail.</p>
+        <SupportSection href="https://buycoffee.to/orthobase" />
       </main>
 
       <footer className={styles.footer}>
