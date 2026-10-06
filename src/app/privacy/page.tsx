@@ -58,7 +58,16 @@ export default function Privacy() {
 
         <h2 className="text-xl font-semibold text-slate-900 mt-6 mb-2">Pliki cookies i analityka</h2>
         <p className="text-slate-800 leading-relaxed">
-          Obecnie nie stosujemy narzędzi analitycznych. Informacja zostanie zaktualizowana po wdrożeniu analityki.
+          Prowadzimy zbiorcze liczniki odsłon strony głównej i tej informacji o prywatności. Nie służą identyfikacji użytkowników.
+          Statystyki obejmują wyłącznie dzień w strefie Europe/Warsaw, jedną z dwóch ścieżek strony i liczbę odsłon;
+          nie pokazują liczby unikalnych osób. Nie używają cookies ani identyfikatorów urządzenia, nie zapisują danych konta,
+          parametrów adresu, źródła wejścia ani historii przeglądania. Przekazujemy je do własnego zaplecza Orthobase w serwisie Dyżury.
+        </p>
+        <p className="text-slate-800 leading-relaxed mt-3">
+          Aby ograniczyć sztuczne nabijanie liczników, zaplecze przetwarza adres IP wyłącznie do utworzenia krótkotrwałego,
+          zmiennego co minutę skrótu zabezpieczonego tajnym kluczem. Nie zapisuje adresu IP w statystykach ani liczniku ograniczeń.
+          Skrót nie jest łączony z kontem; limit wygasa najpóźniej po dwóch minutach, a przeterminowane wpisy są usuwane przy kolejnej
+          obsłudze statystyk. Infrastruktura hostingowa może niezależnie przetwarzać dane techniczne połączenia.
         </p>
         <p className="text-slate-800 leading-relaxed mt-3">
           Zamknięcie komunikatu o warsztacie zapamiętujemy przez 6 godzin w pliku cookie wspólnym dla orthobase.pl i jego subdomen, zawierającym tylko czas zakończenia ukrycia komunikatu.

@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import SupportSection from "@/components/SupportSection";
+import PageViewTracker from "@/components/PageViewTracker";
 import "./globals.css";
 import "./workshop.css";
 import { Inter } from "next/font/google";
@@ -82,6 +83,7 @@ export default function RootLayout({
         className={`${inter.className} antialiased text-slate-100
         bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800`}
       >
+        <PageViewTracker />
         <div className={styles.shell}>
           {children}
           <div className={styles.support}>

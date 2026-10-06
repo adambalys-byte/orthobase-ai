@@ -28,6 +28,16 @@ function BookIcon() {
   );
 }
 
+function BoneBlueprint() {
+  return (
+    <svg viewBox="0 0 96 96" fill="none" aria-hidden="true" focusable="false">
+      <path d="M16 8v80M80 8v80M8 16h80M8 80h80" stroke="currentColor" strokeOpacity=".22" strokeDasharray="3 5" />
+      <path d="m32 63 31-31c7 3 14-2 13-9-1-6-8-9-13-6-3-5-10-5-14 0-4 5-2 10 1 13L19 61c-7-3-14 2-13 9 1 6 8 9 13 6 3 5 10 5 14 0 4-5 2-10-1-13Z" transform="translate(7 1)" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M61 70h18m-18-4v8m9-6v4m9-6v8M22 22l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity=".6" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <div className={styles.page}>
@@ -69,6 +79,18 @@ export default function Home() {
             <p className={styles.cardDetail}>Sprawdź program i kolejne spotkania.</p>
             <span className={styles.cardAction}>Otwórz Szkołę <span className={styles.arrow}><Arrow /></span></span>
           </a>
+
+          <article className={[styles.card, styles.comingSoon].join(" ")} aria-labelledby="emergency-title" aria-describedby="emergency-status emergency-description">
+            <span className={styles.blueprint}><BoneBlueprint /></span>
+            <div className={styles.upcomingCopy}>
+              <div className={styles.upcomingHeading}>
+                <h2 id="emergency-title" className={styles.cardTitle}>Ostry dyżur</h2>
+                <span id="emergency-status" className={styles.upcomingStatus}>W opracowaniu</span>
+              </div>
+              <p id="emergency-description" className={styles.cardDescription}>Praktyczne wsparcie na ostrym dyżurze.</p>
+              <p className={styles.cardDetail}>Przygotowujemy moduł z myślą o codziennej praktyce i młodszych lekarzach.</p>
+            </div>
+          </article>
         </section>
 
         <p className={styles.future}><span aria-hidden="true" />Jedno konto Orthobase. Google lub kod e-mail.</p>
