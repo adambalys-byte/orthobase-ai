@@ -1,15 +1,28 @@
 import HomeLogo from "@/components/HomeLogo";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Prywatność | Orthobase",
+  description: "Informacje o danych, wspólnym koncie, publicznych stronach Orthobase i formularzach Szkoły Kształcenia Rezydentów.",
+  alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Prywatność | Orthobase", description: "Informacje o danych i usługach Orthobase.",
+    url: "https://www.orthobase.pl/privacy", siteName: "Orthobase", locale: "pl_PL", type: "website",
+    images: [{ url: "/orthobase-og.png", width: 1200, height: 630, alt: "Orthobase — narzędzia dla ortopedii" }],
+  },
+  twitter: { card: "summary_large_image", title: "Prywatność | Orthobase", description: "Informacje o danych i usługach Orthobase.", images: ["/orthobase-og.png"] },
+};
 
 export default function Privacy() {
   return (
     <main className="min-h-screen px-6 py-10 md:px-8 md:py-14">
       <section className="mx-auto w-full max-w-3xl rounded-2xl border border-slate-200 bg-white/95 p-6 md:p-10 shadow-md">
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-          Polityka prywatności – OrthoBase AI
+          Polityka prywatności – Orthobase
         </h1>
 
         <p className="text-slate-800 mb-3 leading-relaxed">
-          Administratorem danych osobowych jest <strong>Adam Bałys</strong> (OrthoBase AI). Kontakt:{" "}
+          Administratorem danych osobowych jest <strong>Adam Bałys</strong> (Orthobase). Kontakt:{" "}
           <a className="underline text-blue-700 hover:text-blue-800" href="mailto:kontakt@orthobase.pl">
             kontakt@orthobase.pl
           </a>.
@@ -44,9 +57,53 @@ export default function Privacy() {
           Informacje dotyczące przechowywania danych konta znajdują się w informacji o danych konta Orthobase.
         </p>
 
+        <h2 id="szkola" className="text-xl font-semibold text-slate-900 mt-6 mb-2">Szkoła, zgłoszenia i korespondencja</h2>
+        <p className="text-slate-800 leading-relaxed">
+          Program, terminy spotkań i materiały SKR są publiczne. Formularze zapisów na warsztaty,
+          zgłoszeń prezentacji i materiałów otwierają się w Google Forms; odpowiedzi trafiają do arkuszy Google.
+          Zakres wymaganych i opcjonalnych danych pokazuje dany formularz. Organizatorzy wykorzystują zgłoszenia
+          do kontaktu z uczestnikami, organizacji wydarzeń i ustalenia programu. Wysłanie formularza nie oznacza
+          automatycznego potwierdzenia miejsca. Odpowiedzi nie są publicznie wyświetlane na stronie SKR.
+          W opublikowanym programie mogą pojawiać się nazwiska prowadzących i prelegentów oraz tematy wystąpień.
+        </p>
+        <p className="text-slate-800 leading-relaxed mt-3">
+          Korespondencja organizacyjna jest wysyłana przez Resend lub Google/Gmail. W panelu administratora Orthobase
+          może być przechowywana kopia wysłanej wiadomości: jej treść, adresat, temat, czas i wynik próby wysyłki.
+          Tę historię udostępniamy wyłącznie administratorowi. Nie oznacza to dostępu do poczty uczestników.
+          W formularzach i przesyłanych materiałach nie podawaj danych identyfikujących pacjentów.
+        </p>
+        <p className="text-slate-800 leading-relaxed mt-3">
+          Formularze Google mają własny ekran logowania, niezależny od konta Orthobase. Przejście do formularza
+          wiąże się z korzystaniem z usług Google zgodnie z jego{" "}
+          <a className="underline text-blue-700 hover:text-blue-800" href="https://policies.google.com/privacy?hl=pl">polityką prywatności</a>.
+          W sprawie własnego zgłoszenia lub jego korekty napisz na kontakt@orthobase.pl.
+        </p>
+
+        <h2 className="text-xl font-semibold text-slate-900 mt-6 mb-2">Dobrowolne wsparcie</h2>
+        <p className="text-slate-800 leading-relaxed">
+          Przycisk „Wesprzyj rozwój Orthobase” prowadzi do zewnętrznego profilu BuyCoffee.to.
+          Płatność odbywa się w serwisie operatora; strony Orthobase nie przyjmują numerów kart ani kodów BLIK.
+          Przed wpłatą zapoznaj się z informacją o prywatności i warunkami wyświetlanymi przez operatora.
+          Wsparcie jest dobrowolne i nie wpływa na weryfikację konta ani dostęp do modułów.
+        </p>
+
         <h2 className="text-xl font-semibold text-slate-900 mt-6 mb-2">Odbiorcy danych</h2>
         <p className="text-slate-800 leading-relaxed">
           Dostawcy hostingu strony głównej i poczty (Vercel, OVH). Usługi wykorzystywane przez konto Orthobase opisano w jego odrębnej informacji o danych.
+        </p>
+
+        <p className="text-slate-800 leading-relaxed mt-3">
+          SKR i Dyżury korzystają z Sites i infrastruktury Cloudflare. Google obsługuje logowanie,
+          formularze, arkusze i część korespondencji, a Resend — wiadomości automatyczne.
+          Osoby upoważnione do organizacji dyżurów i SKR otrzymują dane potrzebne do obsługi tych zadań.
+        </p>
+        <p className="text-slate-800 leading-relaxed mt-3">
+          Korzystanie z dostawców międzynarodowych może wiązać się z przetwarzaniem danych poza Europejskim Obszarem Gospodarczym.
+          Resend informuje, że przechowuje dane w USA, także przy wyborze europejskiego regionu wysyłki,
+          i opisuje standardowe klauzule umowne w swojej{" "}
+          <a className="underline text-blue-700 hover:text-blue-800" href="https://resend.com/legal/dpa">umowie powierzenia danych</a>.
+          Okres przechowywania wiadomości u dostawcy jest odrębny od historii wiadomości w Orthobase.
+          Informacje o zabezpieczeniach transferów dotyczących Twoich danych możesz uzyskać pod adresem kontaktowym.
         </p>
 
         <h2 className="text-xl font-semibold text-slate-900 mt-6 mb-2">Prawa osób</h2>
@@ -74,7 +131,7 @@ export default function Privacy() {
         </p>
 
         <p className="text-xs text-slate-500 mt-8">
-          Wersja: {new Date().toISOString().slice(0, 10)}
+          Ostatnia aktualizacja: 8 października 2026 r.
         </p>
         <div className="mt-6">
           <HomeLogo compact />

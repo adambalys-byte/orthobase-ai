@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import AccountLink from "@/components/AccountLink";
 import HomeLogo from "@/components/HomeLogo";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 function Arrow() {
   return (

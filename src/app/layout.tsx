@@ -12,20 +12,21 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   title: "Orthobase — Dyżury i Szkoła",
-  description: "Narzędzia dla ortopedii w jednym miejscu. Przejdź do propozycji dyżurowych i próbnego grafiku lub sprawdź program i spotkania Szkoły.",
-  metadataBase: new URL("https://orthobase.pl"),
+  description: "Orthobase: propozycje dyżurowe, próbny grafik zespołu ortopedycznego oraz program i materiały Szkoły Kształcenia Rezydentów w Otwocku.",
+  metadataBase: new URL("https://www.orthobase.pl"),
   openGraph: {
     title: "Orthobase — Dyżury i Szkoła",
-    description: "Narzędzia dla ortopedii w jednym miejscu. Przejdź do propozycji dyżurowych i próbnego grafiku lub sprawdź program i spotkania Szkoły.",
-    url: "https://orthobase.pl",
-    siteName: "OrthoBase AI",
-    images: [{ url: "/orthobase-og.png", width: 1200, height: 630, alt: "OrthoBase AI" }],
+    description: "Orthobase: propozycje dyżurowe, próbny grafik zespołu ortopedycznego oraz program i materiały Szkoły Kształcenia Rezydentów w Otwocku.",
+    url: "https://www.orthobase.pl/",
+    siteName: "Orthobase",
+    locale: "pl_PL",
+    images: [{ url: "/orthobase-og.png", width: 1200, height: 630, alt: "Orthobase — Dyżury i Szkoła rezydentów" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Orthobase — Dyżury i Szkoła",
-    description: "Narzędzia dla ortopedii w jednym miejscu. Przejdź do propozycji dyżurowych i próbnego grafiku lub sprawdź program i spotkania Szkoły.",
+    description: "Orthobase: propozycje dyżurowe, próbny grafik zespołu ortopedycznego oraz program i materiały Szkoły Kształcenia Rezydentów w Otwocku.",
     images: ["/orthobase-og.png"],
   },
 };
@@ -41,14 +42,14 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "Organization",
-        "@id": "https://orthobase.pl/#organization",
-        name: "OrthoBase AI",
-        url: "https://orthobase.pl",
+        "@id": "https://www.orthobase.pl/#organization",
+        name: "Orthobase",
+        url: "https://www.orthobase.pl/",
         logo: {
           "@type": "ImageObject",
-          url: "https://orthobase.pl/orthobase-logo.png",
-          width: 512,
-          height: 512,
+          url: "https://www.orthobase.pl/orthobase-logo.png",
+          width: 3172,
+          height: 2395,
         },
         contactPoint: [
           {
@@ -61,10 +62,11 @@ export default function RootLayout({
       },
       {
         "@type": "WebSite",
-        "@id": "https://orthobase.pl/#website",
-        url: "https://orthobase.pl",
-        name: "OrthoBase AI",
-        publisher: { "@id": "https://orthobase.pl/#organization" },
+        "@id": "https://www.orthobase.pl/#website",
+        url: "https://www.orthobase.pl/",
+        name: "Orthobase",
+        inLanguage: "pl-PL",
+        publisher: { "@id": "https://www.orthobase.pl/#organization" },
       },
     ],
   };
