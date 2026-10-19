@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/check-security-txt.cjs",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
     "ci:test": "next build --turbopack && start-server-and-test \"next start -p 3100\" http://localhost:3100 \"playwright test --reporter=line\"",
-    "test:e2e": "playwright test --reporter=line"
+    "test:e2e": "playwright test --reporter=line",
+    "test:unit": "node --test test/*.test.cjs",
+    "check:security": "node scripts/check-security-txt.cjs",
+    "test:security-browser": "node scripts/check-security-browser.cjs"
   },
   "dependencies": {
     "next": "15.5.27",
