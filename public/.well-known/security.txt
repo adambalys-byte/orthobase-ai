@@ -1,7 +1,6 @@
 Contact: mailto:kontakt@orthobase.pl
-Encryption: https://orthobase.pl/pgp.txt
-Acknowledgments: https://orthobase.pl
+Acknowledgments: https://www.orthobase.pl/
 Preferred-Languages: pl, en
-Canonical: https://orthobase.pl/.well-known/security.txt
-Policy: https://orthobase.pl/privacy
-Expires: 2026-01-01T00:00:00Z
+Canonical: https://www.orthobase.pl/.well-known/security.txt
+Policy: https://www.orthobase.pl/privacy
+Expires: 2027-10-01T00:00:00Z
