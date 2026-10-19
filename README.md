@@ -20,6 +20,20 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Tests
+
+- `npm test` runs the unit tests.
+- `npm run ci:test` runs unit tests, validates `security.txt`, and builds the site.
+- `npm run test:e2e` runs the browser checks against an already running local
+  production server (by default `127.0.0.1:3186`). Install Playwright Chromium
+  first with `npx playwright install chromium` if it is not already available.
+  See [SECURITY-OPERATIONS.md](SECURITY-OPERATIONS.md) for the manual steps and
+  safety limits.
+
+These commands do not create recurring jobs. The browser checks use fictional
+account data, block external requests, and do not send forms or emails.
+The legacy `start-server-and-test` dependency is not used by these commands.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

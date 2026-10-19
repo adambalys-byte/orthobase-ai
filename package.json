@@ -8,8 +8,9 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
-    "ci:test": "next build --turbopack && start-server-and-test \"next start -p 3100\" http://localhost:3100 \"playwright test --reporter=line\"",
-    "test:e2e": "playwright test --reporter=line",
+    "test": "npm run test:unit",
+    "ci:test": "npm test && npm run build",
+    "test:e2e": "npm run test:security-browser",
     "test:unit": "node --test test/*.test.cjs",
     "check:security": "node scripts/check-security-txt.cjs",
     "test:security-browser": "node scripts/check-security-browser.cjs"
