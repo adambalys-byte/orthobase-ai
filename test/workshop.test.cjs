@@ -80,7 +80,7 @@ test('public notice uses only unauthenticated GET and the verified public regist
   assert(texts.includes('Opieka: dr Ewa Tramś.'));
   assert(texts.includes('Udział wymaga potwierdzenia organizatorów.'));
   assert(!texts.includes('ostatnie'));
-  assert.equal(panel.children.find(node => node.tag === 'a').href, 'https://docs.google.com/forms/d/e/1FAIpQLSdtQSAcaOjSdJZ6YIuXpAdGxRVRa-WWEZ70D2OHBtUc97gqIw/viewform');
+  assert.equal(panel.children.find(node => node.tag === 'a').href, 'https://dyzury.orthobase.pl/?view=workshops');
   const cta = panel.children.find(node => node.tag === 'a');
   assert.equal(cta.target, '_blank');
   assert.equal(cta.rel, 'noopener');
@@ -191,3 +191,4 @@ test('lifecycle preserves public content, waits for DOM, avoids duplicate bootst
   assert.equal(ui.requests.length, 2); await answer(ui.requests[1], ui.fresh());
   assert.equal(ui.document.body.children.length, 1); assert.equal(ui.panel().hidden, false);
 });
+
