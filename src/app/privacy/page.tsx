@@ -81,8 +81,11 @@ export default function Privacy() {
 
         <h2 id="szkola" className="text-xl font-semibold text-slate-900 mt-6 mb-2">Szkoła, zgłoszenia i korespondencja</h2>
         <p className="text-slate-800 leading-relaxed">
-          Program, terminy spotkań i materiały SKR są publiczne. Formularze zapisów na warsztaty,
-          zgłoszeń prezentacji i materiałów otwierają się w Google Forms; odpowiedzi trafiają do arkuszy Google.
+          Program, terminy spotkań i materiały SKR są publiczne. Zapisy na warsztaty artroskopowe,
+          dostępność i potwierdzone terminy obsługuje konto OrthoBase. Dotychczasowe formularze i arkusze Google
+          dotyczące warsztatów artroskopowych pozostają archiwum wcześniejszych zgłoszeń i ocen.
+          Formularze zgłoszeń prelegentów i przesyłania materiałów
+          nadal otwierają się w Google Forms; odpowiedzi trafiają do arkuszy Google.
           Zakres wymaganych i opcjonalnych danych pokazuje dany formularz. Organizatorzy wykorzystują zgłoszenia
           do kontaktu z uczestnikami, organizacji wydarzeń i ustalenia programu. Wysłanie formularza nie oznacza
           automatycznego potwierdzenia miejsca. Odpowiedzi nie są publicznie wyświetlane na stronie SKR.
@@ -110,7 +113,7 @@ export default function Privacy() {
         </p>
         <p className="text-slate-800 leading-relaxed mt-3">
           Rejestry zajęć obejmują imię i nazwisko, termin, obecność albo nieobecność, usprawiedliwienie oraz historię korekt.
-          W odrębnym pilotażu warsztatów zapisujemy także zgłoszenie, dostępność, przydział, zaliczenie,
+          W module warsztatów OrthoBase zapisujemy także zgłoszenie, dostępność, przydział, zaliczenie,
           poziom zaawansowania i notatki szkoleniowe. Obecność nie oznacza automatycznie zaliczenia.
           Listy zwykłych zajęć i ich eksporty są dostępne Administratorowi i przypisanemu uprawnionemu opiekunowi naukowemu;
           rezydent może sprawdzić własny status w dostępnym mu widoku. Prowadzący warsztat otrzymuje dostęp tylko do przydzielonych zajęć.
@@ -190,7 +193,7 @@ export default function Privacy() {
         </p>
 
         <p className="text-xs text-slate-500 mt-8">
-          Ostatnia aktualizacja: 3 listopada 2026 r.
+          Ostatnia aktualizacja: 12 listopada 2026 r.
         </p>
         <div className="mt-6">
           <HomeLogo compact />
@@ -199,3 +202,4 @@ export default function Privacy() {
     </main>
   );
 }
+
