@@ -5,7 +5,7 @@
   window.__obWorkshop20261008 = true;
   const END = Date.parse('2026-10-07T22:00:00.000Z');
   const STATUS = 'https://dyzury.orthobase.pl/api/public/workshop-campaign';
-  const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSdtQSAcaOjSdJZ6YIuXpAdGxRVRa-WWEZ70D2OHBtUc97gqIw/viewform';
+  const FORM = 'https://dyzury.orthobase.pl/?view=workshops';
   const COOKIE = 'obWorkshop20261008DismissedUntil';
   const SIX_HOURS = 6 * 60 * 60 * 1000;
   const POLL = 60 * 1000, FRESHNESS = 2 * 60 * 1000;
@@ -139,3 +139,4 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once: true});
   else start();
 })();
+
