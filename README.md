@@ -32,7 +32,14 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 These commands do not create recurring jobs. The browser checks use fictional
 account data, block external requests, and do not send forms or emails.
-The legacy `start-server-and-test` dependency is not used by these commands.
+The test commands use the project scripts directly, without an extra server orchestration dependency.
+
+Dependency security updates stay on the Next.js 15.5 maintenance line. Two
+scoped overrides cover upstream pins: Next.js uses PostCSS 8.5.23, and the
+TypeScript ESLint parser uses minimatch 11.0.1. Recheck these overrides when
+upgrading the parent packages. Verify lockfile changes with the unit tests,
+production build (including lint and types), and isolated browser checks.
+The retired Early Access endpoint remains closed and has no mail dependency.
 
 ## Learn More
 

@@ -16,11 +16,9 @@
     "test:security-browser": "node scripts/check-security-browser.cjs"
   },
   "dependencies": {
-    "next": "15.5.27",
-    "nodemailer": "^6.10.1",
+    "next": "15.5.29",
     "react": "19.1.9",
-    "react-dom": "19.1.9",
-    "zod": "^3.25.76"
+    "react-dom": "19.1.9"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
@@ -29,13 +27,20 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "eslint": "^9.37.0",
-    "eslint-config-next": "15.5.27",
-    "start-server-and-test": "^2.0.3",
+    "eslint-config-next": "15.5.29",
     "tailwindcss": "^4.1.14",
     "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=20.0.0"
   },
-  "packageManager": "npm@10"
+  "packageManager": "npm@10",
+  "overrides": {
+    "next": {
+      "postcss": "8.5.23"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.1"
+    }
+  }
 }
